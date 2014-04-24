@@ -36,7 +36,7 @@ def draw(canvas):
     
  #Update collision
     #Left collision
-    if ball_pos[0]-PAD_WIDTH<=BALL_RADIUS:
+    if ball_pos[0] <=(PAD_WIDTH + BALL_RADIUS) and ball_pos[1]>=(paddle1_pos[1]-HALF_PAD_HEIGHT) and ball_pos[1]<=(paddle1_pos[1]+HALF_PAD_HEIGHT):
         ball_vel[0]=-ball_vel[0]
     #Right collision
     elif ball_pos[0]>=(WIDTH - 1 - PAD_WIDTH)-BALL_RADIUS:
@@ -62,7 +62,7 @@ def draw(canvas):
     canvas.draw_circle([ball_pos[0],ball_pos[1]],BALL_RADIUS, 1, "Red", "Red")
     # update paddle's vertical position, keep paddle on the screen
     paddle1_pos[1] += paddle1_vel[1]
-	paddle2_pos[1] += paddle2_vel[1]
+    paddle2_pos[1] += paddle2_vel[1]
     # draw paddles
     canvas.draw_line([paddle1_pos[0], paddle1_pos[1] - HALF_PAD_HEIGHT],[paddle1_pos[0], paddle1_pos[1] + HALF_PAD_HEIGHT], PAD_WIDTH, "White")
     canvas.draw_line([paddle2_pos[0], paddle2_pos[1] - HALF_PAD_HEIGHT],[paddle2_pos[0], paddle2_pos[1] + HALF_PAD_HEIGHT], PAD_WIDTH, "White")
@@ -86,8 +86,8 @@ def keydown(key):
         
 def keyup(key):
     global paddle1_vel, paddle2_vel
-	
-	if key == simplegui.KEY_MAP["s"]:
+    
+    if key == simplegui.KEY_MAP["s"]:
         paddle1_vel[1] = 0
     elif key == simplegui.KEY_MAP["w"]:
         paddle1_vel[1] = 0        
@@ -97,7 +97,7 @@ def keyup(key):
     elif key == simplegui.KEY_MAP["up"]:
         paddle2_vel[1] = 0    
 
-		
+        
 # create frame
 frame = simplegui.create_frame("Pong", WIDTH, HEIGHT)
 frame.set_draw_handler(draw)
